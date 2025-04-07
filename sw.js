@@ -1,20 +1,22 @@
-const BASE_PATH = self.location.pathname.replace(/\/[^/]*$/, '/');
+const CACHE_NAME = 'private-wave-cache-v1';
+const BASE_PATH = '/Private-Wave/'; 
+
 const ASSETS_TO_CACHE = [
   `${BASE_PATH}`,
   `${BASE_PATH}index.html`,
   `${BASE_PATH}manifest.json`,
-  `${BASE_PATH}offline.html`
+  `${BASE_PATH}offline.html`; 
 ];
-
 
 // Install event - Caching essential assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('Service Worker: Caching assets');
-        return cache.addAll(ASSETS_TO_CACHE);
-      })
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log('Service Worker: Caching assets');
+      return cache.addAll(ASSETS_TO_CACHE);
+    }).catch((error) => {
+      console.error('Service Worker: Failed to cache assets', error);
+    })
   );
 });
 
@@ -46,8 +48,8 @@ self.addEventListener('fetch', (event) => {
 
       console.log('Service Worker: Fetching from network', event.request.url);
       return fetch(event.request).catch(() => {
-        // Return a fallback response if network fails (e.g., an offline page)
-        return caches.match('/offline.html'); // Make sure to add an offline page if desired
+        return new Response('You are offline. Please check your internet.');
+        // Or serve: caches.match(`${BASE_PATH}offline.html`)
       });
     })
   );
