@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Offline - ChatApp</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background-color: #0f172a;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 400px;
+      background-color: #1e293b;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #38bdf8;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .hint {
+      font-size: 0.875rem;
+      color: #94a3b8;
+    }
+
+    .status {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #f87171;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>&#128421; You’re Offline</h1>
+    <p>
+      It looks like your device has lost its internet connection.<br/>
+      This private chat app requires an active connection to work properly.
+    </p>
+    <div class="status">
+      Status: <span>Disconnected</span>
+    </div>
+    <p class="hint">
+      Please check your network and try again.
+    </p>
+  </div>
+</body>
+</html>
