@@ -82,8 +82,16 @@
 
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
-    }
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/Private-Wave/sw.js') // Correct path
+      .then((registration) => {
+        console.log('Service Worker registered with scope:', registration.scope);
+      })
+      .catch((error) => {
+        console.log('Service Worker registration failed:', error);
+      });
+  });
+}
 
     const peer = new SimplePeer({ initiator: location.hash === '#init', trickle: false });
     let theirPublicKey;
