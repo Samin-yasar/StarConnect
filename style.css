@@ -1,0 +1,52 @@
+body {
+  font-family: sans-serif;
+  background: #121212;
+  color: #e0e0e0;
+  padding: 2rem;
+}
+#chat {
+  background: #1e1e1e;
+  padding: 1rem;
+  border-radius: 1rem;
+  max-width: 600px;
+  margin: auto;
+}
+#messages {
+  height: 300px;
+  overflow-y: auto;
+  border: 1px solid #444;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: #2c2c2c;
+}
+.msg {
+  margin: 0.5rem 0;
+}
+.msg.me {
+  text-align: right;
+  color: #90caf9;
+}
+.nickname {
+  font-weight: bold;
+  display: block;
+}
+.timestamp {
+  font-size: 0.75rem;
+  color: #999;
+}
+#media-preview {
+  max-width: 100%;
+  max-height: 200px;
+  margin-top: 0.5rem;
+}
+input, button, textarea {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background: #333;
+  color: white;
+  border: 1px solid #555;
+}
+textarea {
+  width: 100%;
+  margin-top: 0.5rem;
+}
