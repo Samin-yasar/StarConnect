@@ -1,52 +1,64 @@
 body {
-  font-family: sans-serif;
-  background: #121212;
-  color: #e0e0e0;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f8ff; /* Light blue tint */
+  color: #003366;
+}
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
   padding: 2rem;
-}
-#chat {
-  background: #1e1e1e;
-  padding: 1rem;
+  background: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 51, 102, 0.1);
   border-radius: 1rem;
-  max-width: 600px;
-  margin: auto;
 }
-#messages {
-  height: 300px;
+.chat-box {
+  height: 400px;
   overflow-y: auto;
-  border: 1px solid #444;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  background: #2c2c2c;
-}
-.msg {
-  margin: 0.5rem 0;
-}
-.msg.me {
-  text-align: right;
-  color: #90caf9;
-}
-.nickname {
-  font-weight: bold;
-  display: block;
-}
-.timestamp {
-  font-size: 0.75rem;
-  color: #999;
-}
-#media-preview {
-  max-width: 100%;
-  max-height: 200px;
-  margin-top: 0.5rem;
-}
-input, button, textarea {
-  padding: 0.5rem;
+  border: 1px solid #cce6ff;
   border-radius: 0.5rem;
-  background: #333;
-  color: white;
-  border: 1px solid #555;
+  padding: 1rem;
+  background: #e6f3ff;
 }
-textarea {
+
+.message {
+  background: #cce6ff;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 1rem;
+  box-shadow: 2px 2px 8px rgba(0, 51, 102, 0.1);
+}
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+  transform: translateY(-2px);
+}
+input[type="text"], textarea {
   width: 100%;
-  margin-top: 0.5rem;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #b3d9ff;
+  background: #f9fcff;
+  font-size: 1rem;
+  transition: border 0.3s ease;
+}
+
+input[type="text"]:focus, textarea:focus {
+  border-color: #3399ff;
+  outline: none;
 }
