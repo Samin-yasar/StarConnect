@@ -5,7 +5,7 @@ const ASSETS_TO_CACHE = [
   `${BASE_PATH}`,
   `${BASE_PATH}index.html`,
   `${BASE_PATH}manifest.json`,
-  `${BASE_PATH}offline.html`; 
+  `${BASE_PATH}offline.html`, 
 ];
 
 // Install event - Caching essential assets
