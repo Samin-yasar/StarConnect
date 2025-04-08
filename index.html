@@ -1,1 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure P2P Chat</title>
+  <meta name="theme-color" content="#121212" />
+  <link rel="manifest" href="/Private-Wave/manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="chat">
+    <h2>Secure P2P Chat</h2>
+    <div><strong>Nickname:</strong> <span id="myNick"></span></div>
+    <div id="messages"></div>
+    <input type="file" id="fileInput" />
+    <br><br>
+    <input type="text" id="message" placeholder="Type your message..." style="width: 70%;" />
+    <button id="sendButton">Send</button>
+    <h4>Signal Exchange</h4>
+    <textarea id="mySignal" readonly></textarea>
+    <button id="copySignal">Copy My Signal</button>
+  </div>
 
+  <script src="https://unpkg.com/simple-peer@9/simplepeer.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tweetnacl/1.0.3/nacl.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tweetnacl-util/0.15.1/nacl-util.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script>
+  <script src="crypto.js"></script>
+  <script src="ui.js"></script>
+  <script src="peer.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
