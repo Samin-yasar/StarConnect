@@ -15,3 +15,9 @@ function decryptMessage({ box, nonce }) {
   if (!decrypted) return null;
   return encoder.encodeUTF8(decrypted);
 }
+
+// 🔓 Expose functions and variables globally
+window.encryptMessage = encryptMessage;
+window.decryptMessage = decryptMessage;
+window.keyPair = keyPair;
+window.setPeerPublicKey = (key) => peerPublicKey = key;
