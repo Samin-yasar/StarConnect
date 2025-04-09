@@ -1,3 +1,4 @@
+// stars.js
 function createStars() {
   const starsContainer = document.createElement('div');
   starsContainer.className = 'stars';
@@ -21,6 +22,7 @@ function createStars() {
   nebula.style.top = '20%';
   nebula.style.left = '10%';
   starsContainer.appendChild(nebula);
-  }
+}
 
-};
+// Call this when the script loads
+createStars();
