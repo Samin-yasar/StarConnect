@@ -10,7 +10,7 @@ window.onload = () => {
 
     try {
       const { box, nonce } = window.encryptMessage(message);
-      peer.send(JSON.stringify({ box, nonce, nickname }));
+      window.peer.send(JSON.stringify({ box, nonce, nickname }));
       addMessage(message, true, nickname);
       input.value = '';
     } catch (e) {
