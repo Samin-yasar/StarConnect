@@ -1,33 +1,33 @@
-// Initialize the peer connection, deciding if this peer is the initiator based on the URL hash
+// peer.js
 const peer = new SimplePeer({ initiator: location.hash === '#init', trickle: false });
 
-// Signal exchange handler
 peer.on('signal', data => {
-  // Send signal data (this should be passed to the other peer)
   document.getElementById('mySignal').value = JSON.stringify(data);
 });
 
-// Connect event (peer connection established)
 peer.on('connect', () => {
   alert('Secure connection established!');
-  // You can now send encrypted messages
+  // Exchange public keys after connection
+  const myPublicKey = window.getKeyPair().publicKey;
+  peer.send(JSON.stringify({ type: 'publicKey', publicKey: myPublicKey }));
 });
 
-// Data reception handler
 peer.on('data', rawData => {
-  // Decrypt received data
   const msg = JSON.parse(rawData);
-  const plain = decryptMessage(msg.encryptedMessage, msg.key); // Decrypt the message
+  
+  if (msg.type === 'publicKey') {
+    // Set the peer's public key
+    window.setPeerPublicKey(msg.publicKey);
+    console.log('Peer public key received and set');
+    return;
+  }
+
+  // Decrypt the message
+  const plain = window.decryptMessage({ box: msg.box, nonce: msg.nonce });
   if (!plain) return alert('Failed to decrypt message!');
   
-  // Process the decrypted message (add it to the chat, etc.)
   addMessage(plain, false, msg.nickname);
 });
 
-// Example message sending (you can modify this as per your UI/logic)
-function sendMessage() {
-  const message = document.getElementById('message').value;
-  const encrypted = encryptMessage(message, encryptionKey); // Encrypt the message
-  peer.send(JSON.stringify({ encryptedMessage: encrypted, key: encryptionKey, nickname: "UserNickname" }));
-  document.getElementById('message').value = ''; // Clear the message input field
-}
+// Expose peer globally
+window.peer = peer;
