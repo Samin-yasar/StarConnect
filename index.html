@@ -18,57 +18,62 @@
     <input id="messageInput" placeholder="Type a message">
     <button type="submit">Send</button>
   </form>
+
+  <!-- SimplePeer Library -->
   <script src="https://unpkg.com/simple-peer@9.11.1/simplepeer.min.js"
-        onerror="console.error('Failed to load simple-peer'); alert('Failed to load peer library. Please refresh.')"></script>
+          onerror="console.error('Failed to load simple-peer'); alert('Failed to load peer library. Please refresh.')"></script>
 
   <script>
-  function loadCryptoJSFallback() {
-    console.error('Failed to load CryptoJS from CDN');
-    const script = document.createElement('script');
-    script.src = 'crypto-js.min.js';
-    script.onload = () => {
-      console.log('Loaded local CryptoJS fallback 💙');
-      loadCryptoJSDependentScripts(); // Load dependent scripts next
-    };
-    script.onerror = () => {
-      console.error('Failed to load CryptoJS fallback');
-      alert('Failed to load CryptoJS. Please check your connection and refresh.');
-    };
-    document.head.appendChild(script);
-  }
+    function loadCryptoJSFallback() {
+      console.error('Failed to load CryptoJS from CDN');
+      const script = document.createElement('script');
+      script.src = 'crypto-js.min.js';
+      script.onload = () => {
+        console.log('Loaded local CryptoJS fallback 💙');
+        loadCryptoJSDependentScripts(); // Load dependent scripts next
+      };
+      script.onerror = () => {
+        console.error('Failed to load CryptoJS fallback');
+        alert('Failed to load CryptoJS. Please check your connection and refresh.');
+      };
+      document.head.appendChild(script);
+    }
 
-  function loadCryptoJSDependentScripts() {
-    ['crypto.js', 'ui.js', 'peer.js', 'stars.js'].forEach(src => {
-      const s = document.createElement('script');
-      s.src = src;
-      document.head.appendChild(s);
-    });
-  }
-</script>
+    function loadCryptoJSDependentScripts() {
+      ['crypto.js', 'ui.js', 'peer.js', 'stars.js'].forEach(src => {
+        const s = document.createElement('script');
+        s.src = src;
+        document.head.appendChild(s);
+      });
+    }
+  </script>
 
+  <!-- CryptoJS Library with fallback -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"
           integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalvjyf4W1TCje7epcfA/LOyXWV/6XEJ3w=="
           crossorigin="anonymous"
           onerror="loadCryptoJSFallback()"></script>
 
+  <!-- NaCl Libraries -->
   <script src="nacl-util.min.js"
           onerror="console.error('Failed to load nacl-util.min.js'); alert('Failed to load NaCl utilities. Please refresh.')"></script>
 
   <script src="nacl.min.js"
           onerror="console.error('Failed to load nacl.min.js'); alert('Failed to load NaCl library. Please refresh.')"></script>
 
+  <!-- Custom Scripts -->
   <script src="crypto.js"></script>
   <script src="ui.js"></script>
   <script src="peer.js"></script>
   <script src="stars.js"></script>
 
+  <!-- Service Worker Registration -->
   <script>
-    // Register service worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
+      navigator.serviceWorker.register('sw.js')
         .then(() => console.log('Service Worker registered'))
         .catch(err => console.error('Service Worker registration failed:', err));
     }
-    </script>
-  </body>
+  </script>
+</body>
 </html>
