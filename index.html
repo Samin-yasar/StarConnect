@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Private Wave</title>
-  <link rel="stylesheet" href="/Private-Wave/styles.css">
-  <link rel="manifest" href="/Private-Wave/manifest.json">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
   <div id="messages"></div>
@@ -19,17 +19,17 @@
     <button type="submit">Send</button>
   </form>
   <script src="https://unpkg.com/simple-peer@9.11.1/simplepeer.min.js"></script>
-  <script src="/Private-Wave/crypto-js.min.js"></script>
+  <script src="crypto-js.min.js" onerror="console.error('Failed to load crypto-js.min.js')"></script>
   <script src="https://cdn.jsdelivr.net/npm/tweetnacl-util@0.15.1/nacl-util.min.js" onerror="console.error('Failed to load nacl-util.js')"></script>
   <script src="https://cdn.jsdelivr.net/npm/tweetnacl@1.0.3/nacl.min.js" onerror="console.error('Failed to load nacl.min.js')"></script>
-  <script src="/Private-Wave/crypto.js"></script>
-  <script src="/Private-Wave/ui.js"></script>
-  <script src="/Private-Wave/peer.js"></script>
-  <script src="/Private-Wave/stars.js"></script>
+  <script src="crypto.js"></script>
+  <script src="ui.js"></script>
+  <script src="peer.js"></script>
+  <script src="stars.js"></script>
   <script>
     // Register service worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/Private-Wave/sw.js')
+      navigator.serviceWorker.register('sw.js')
         .then(() => console.log('Service Worker registered'))
         .catch(err => console.error('Service Worker registration failed:', err));
     }
