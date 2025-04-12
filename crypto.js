@@ -4,13 +4,13 @@
 
   function checkNaCl() {
     if (!window.nacl || !window.nacl.util) {
-      throw new Error('NaCl library not loaded.');
+      throw new Error('NaCl library (nacl.js or nacl.util.js) not loaded.');
     }
   }
 
   function checkCryptoJS() {
     if (!window.CryptoJS || !window.CryptoJS.AES || !window.CryptoJS.PBKDF2) {
-      throw new Error('CryptoJS library not loaded.');
+      throw new Error('CryptoJS library (crypto-js-min.js) not loaded.');
     }
   }
 
@@ -19,7 +19,7 @@
     const salt = window.CryptoJS.lib.WordArray.random(16);
     const key = window.CryptoJS.PBKDF2(password, salt, {
       keySize: 256 / 32,
-      iterations: 100000,
+      iterations: 100000
     });
     const iv = window.CryptoJS.lib.WordArray.random(16);
     const encrypted = window.CryptoJS.AES.encrypt(
@@ -32,7 +32,7 @@
     return {
       encrypted: encrypted.ciphertext.toString(window.CryptoJS.enc.Base64),
       salt: salt.toString(window.CryptoJS.enc.Base64),
-      iv: iv.toString(window.CryptoJS.enc.Base64),
+      iv: iv.toString(window.CryptoJS.enc.Base64)
     };
   }
 
@@ -43,7 +43,7 @@
       const iv = window.CryptoJS.enc.Base64.parse(encryptedData.iv);
       const key = window.CryptoJS.PBKDF2(password, salt, {
         keySize: 256 / 32,
-        iterations: 100000,
+        iterations: 100000
       });
       const decrypted = window.CryptoJS.AES.decrypt(
         { ciphertext: window.CryptoJS.enc.Base64.parse(encryptedData.encrypted) },
@@ -84,7 +84,7 @@
           if (secretKey.length === 32) {
             keyPair = {
               publicKey: new Uint8Array(parsed.publicKey),
-              secretKey: secretKey,
+              secretKey: secretKey
             };
             return keyPair;
           }
@@ -104,7 +104,7 @@
           publicKey: Array.from(keyPair.publicKey),
           encrypted: encryptedData.encrypted,
           salt: encryptedData.salt,
-          iv: encryptedData.iv,
+          iv: encryptedData.iv
         })
       );
     }
@@ -161,16 +161,34 @@
     encryptMessage,
     decryptMessage,
     getKeyPair: loadOrGenerateKeyPair,
-    setPeerPublicKey,
+    setPeerPublicKey
   };
 
-  window.addEventListener('load', () => {
+  // Deferred dependency check
+  function checkDependencies() {
     try {
       checkNaCl();
       checkCryptoJS();
+      console.log('Encryption libraries loaded successfully.');
     } catch (e) {
-      console.error(e.message);
-      alert('Encryption libraries failed to load. Chat disabled.');
+      console.error('Dependency check failed:', e.message);
+      alert('Encryption libraries failed to load: ' + e.message + '. Chat disabled.');
     }
-  });
+  }
+
+  // Retry dependency check up to 3 times
+  let attempts = 0;
+  function tryCheckDependencies() {
+    if (attempts < 3) {
+      setTimeout(() => {
+        checkDependencies();
+        attempts++;
+        if (!window.nacl || !window.CryptoJS) {
+          tryCheckDependencies();
+        }
+      }, 500);
+    }
+  }
+
+  window.addEventListener('load', tryCheckDependencies);
 })();
