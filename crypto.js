@@ -1,23 +1,19 @@
 (function () {
-  // Private module variables
   let keyPair = null;
   let peerPublicKey = null;
 
-  // Check for NaCl dependency
   function checkNaCl() {
     if (!window.nacl || !window.nacl.util) {
-      throw new Error('NaCl library not loaded. Please include TweetNaCl.');
+      throw new Error('NaCl library not loaded.');
     }
   }
 
-  // Check for CryptoJS dependency
   function checkCryptoJS() {
     if (!window.CryptoJS || !window.CryptoJS.AES || !window.CryptoJS.PBKDF2) {
-      throw new Error('CryptoJS library not loaded. Required for key encryption.');
+      throw new Error('CryptoJS library not loaded.');
     }
   }
 
-  // Encrypt secret key
   function encryptSecretKey(secretKey, password) {
     checkCryptoJS();
     const salt = window.CryptoJS.lib.WordArray.random(16);
@@ -40,7 +36,6 @@
     };
   }
 
-  // Decrypt secret key
   function decryptSecretKey(encryptedData, password) {
     checkCryptoJS();
     try {
@@ -71,7 +66,6 @@
     }
   }
 
-  // Load or generate key pair
   function loadOrGenerateKeyPair(password) {
     if (keyPair) return keyPair;
 
@@ -113,13 +107,10 @@
           iv: encryptedData.iv,
         })
       );
-    } else {
-      console.warn('No password provided; key pair not stored.');
     }
     return keyPair;
   }
 
-  // Encrypt a message
   function encryptMessage(message) {
     checkNaCl();
     if (!peerPublicKey) {
@@ -139,7 +130,6 @@
     return { box, nonce };
   }
 
-  // Decrypt a message
   function decryptMessage({ box, nonce }) {
     checkNaCl();
     if (!peerPublicKey) {
@@ -160,7 +150,6 @@
     return window.nacl.util.encodeUTF8(decrypted);
   }
 
-  // Set peer public key
   function setPeerPublicKey(key) {
     if (!(key instanceof Uint8Array) || key.length !== 32) {
       throw new Error('Invalid peer public key: must be a 32-byte Uint8Array');
@@ -168,7 +157,6 @@
     peerPublicKey = key;
   }
 
-  // Expose API
   window.cryptoModule = {
     encryptMessage,
     decryptMessage,
@@ -176,7 +164,6 @@
     setPeerPublicKey,
   };
 
-  // Initial dependency check
   window.addEventListener('load', () => {
     try {
       checkNaCl();
