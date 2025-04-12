@@ -1,64 +1,85 @@
 body {
+  background-color: #0f172a;
+  color: #e2e8f0;
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f8ff; /* Light blue tint */
-  color: #003366;
+  padding: 20px;
 }
-
-.container {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 2rem;
-  background: #ffffff;
-  box-shadow: 0 4px 20px rgba(0, 51, 102, 0.1);
-  border-radius: 1rem;
-}
-.chat-box {
-  height: 400px;
+#messages {
+  max-height: 60vh;
   overflow-y: auto;
-  border: 1px solid #cce6ff;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  background: #e6f3ff;
+  margin-bottom: 20px;
 }
-
-.message {
-  background: #cce6ff;
-  padding: 0.7rem 1rem;
-  margin: 0.5rem 0;
-  border-radius: 1rem;
-  box-shadow: 2px 2px 8px rgba(0, 51, 102, 0.1);
+.msg {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  max-width: 70%;
+  padding: 8px;
+}
+.msg.me {
+  align-self: flex-end;
+  background-color: #38bdf8;
+  color: white;
+  border-radius: 10px 10px 0 10px;
+}
+.msg:not(.me) {
+  align-self: flex-start;
+  background-color: #1e293b;
+  border-radius: 10px 10px 10px 0;
+}
+.nickname {
+  font-weight: bold;
+  font-size: 0.9em;
+}
+.timestamp {
+  font-size: 0.8em;
+  color: #94a3b8;
+}
+.content {
+  word-break: break-word;
+}
+form {
+  display: flex;
+  margin-bottom: 10px;
+}
+input, textarea {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #1e293b;
+  color: #e2e8f0;
+}
+textarea {
+  resize: none;
+  height: 100px;
 }
 button {
-  background-color: #007bff;
+  padding: 10px;
+  margin-left: 10px;
+  background-color: #38bdf8;
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
-  margin-top: 1rem;
-  font-size: 1rem;
-  border-radius: 0.75rem;
+  border-radius: 5px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
 }
-
-button:hover {
-  background-color: #0056b3;
-  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
-  transform: translateY(-2px);
+.stars {
+  pointer-events: none;
 }
-input[type="text"], textarea {
-  width: 100%;
-  padding: 0.8rem;
-  margin-top: 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid #b3d9ff;
-  background: #f9fcff;
-  font-size: 1rem;
-  transition: border 0.3s ease;
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 2s infinite;
 }
-
-input[type="text"]:focus, textarea:focus {
-  border-color: #3399ff;
-  outline: none;
+.nebula {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(100, 100, 255, 0.2), transparent);
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
