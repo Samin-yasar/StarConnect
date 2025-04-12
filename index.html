@@ -19,63 +19,14 @@
     <button type="submit">Send</button>
   </form>
   <script src="https://unpkg.com/simple-peer@9.11.1/simplepeer.min.js"></script>
-  <script src="/Private-Wave/crypto-js-min.js"></script>
-  <script src="/Private-Wave/nacl.util.js"></script>
-  <script src="/Private-Wave/nacl.js"></script>
+  <script src="/Private-Wave/crypto-js.min.js"></script>
+  <script src="/Private-Wave/nacl-util.js"></script>
+  <script src="/Private-Wave/nacl.min.js"></script>
   <script src="/Private-Wave/crypto.js"></script>
+  <script src="/Private-Wave/ui.js"></script>
   <script src="/Private-Wave/peer.js"></script>
   <script src="/Private-Wave/stars.js"></script>
   <script>
-    // Inline addMessage function
-    function addMessage(content, isOwnMessage, nickname = 'Anonymous') {
-      const messages = document.getElementById('messages');
-      if (!messages) {
-        console.error('Messages container not found');
-        return;
-      }
-
-      const msg = document.createElement('div');
-      msg.classList.add('msg');
-      if (isOwnMessage) msg.classList.add('me');
-
-      const nick = document.createElement('span');
-      nick.className = 'nickname';
-      nick.textContent = nickname.replace(/[<>&"']/g, (m) => ({
-        '<': '&lt;',
-        '>': '&gt;',
-        '&': '&amp;',
-        '"': '&quot;',
-        "'": '&#39;'
-      }[m]));
-      msg.appendChild(nick);
-
-      const time = document.createElement('span');
-      time.className = 'timestamp';
-      time.textContent = new Date().toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-      msg.appendChild(time);
-
-      const contentDiv = document.createElement('div');
-      contentDiv.className = 'content';
-      if (typeof content === 'string') {
-        contentDiv.textContent = content.replace(/[<>&"']/g, (m) => ({
-          '<': '&lt;',
-          '>': '&gt;',
-          '&': '&amp;',
-          '"': '&quot;',
-          "'": '&#39;'
-        }[m]));
-      } else {
-        contentDiv.appendChild(content);
-      }
-      msg.appendChild(contentDiv);
-
-      messages.appendChild(msg);
-      messages.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' });
-    }
-
     // Register service worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/Private-Wave/sw.js')
