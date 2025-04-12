@@ -7,12 +7,26 @@ const peer = new SimplePeer({
 let nickname = localStorage.getItem('chatNickname') || 'Anonymous';
 let password = null;
 
-function initializeKeyPair() {
+function initializeKeyPair(attempt = 1, maxAttempts = 30, startTime = Date.now()) {
+  const timeoutMs = 15000; // 15 seconds
+  if (Date.now() - startTime > timeoutMs) {
+    console.error('Key pair initialization timed out after', timeoutMs, 'ms');
+    alert('Encryption setup timed out. Please refresh and try again.');
+    return;
+  }
   try {
+    if (!window.CryptoJS || !window.nacl || !window.nacl.util) {
+      throw new Error('Encryption libraries (CryptoJS or NaCl) not loaded');
+    }
     window.cryptoModule.getKeyPair(password);
+    console.log('Key pair initialized successfully');
   } catch (e) {
-    console.error('Key pair initialization failed:', e);
-    alert('Encryption setup failed: ' + e.message);
+    console.error('Key pair initialization failed (attempt ' + attempt + '):', e);
+    if (attempt < maxAttempts) {
+      setTimeout(() => initializeKeyPair(attempt + 1, maxAttempts, startTime), 1000);
+    } else {
+      alert('Encryption setup failed after ' + maxAttempts + ' attempts: ' + e.message + '. Please refresh.');
+    }
   }
 }
 
@@ -27,13 +41,7 @@ window.addEventListener('load', () => {
     alert('No password provided. Using temporary key.');
   }
 
-  // Wait for crypto.js to confirm dependencies
-  const checkInterval = setInterval(() => {
-    if (window.CryptoJS && window.nacl) {
-      clearInterval(checkInterval);
-      initializeKeyPair();
-    }
-  }, 100);
+  initializeKeyPair();
 });
 
 peer.on('signal', (data) => {
