@@ -10,7 +10,7 @@
 
   function checkCryptoJS() {
     if (!window.CryptoJS || !window.CryptoJS.AES || !window.CryptoJS.PBKDF2) {
-      throw new Error('CryptoJS library (crypto-js.min.js) not loaded.');
+      throw new Error('CryptoJS library not loaded from CDN.');
     }
   }
 
@@ -164,37 +164,41 @@
     setPeerPublicKey
   };
 
-  // Deferred dependency check with retries
+  // Dependency check with timeout and retries
   function checkDependencies() {
     try {
       checkNaCl();
       checkCryptoJS();
       console.log('Encryption libraries loaded successfully.');
+      return true;
     } catch (e) {
       console.error('Dependency check failed:', e.message);
-      alert('Encryption libraries failed to load: ' + e.message + '. Chat disabled.');
-      throw e;
+      return false;
     }
   }
 
   let attempts = 0;
-  function tryCheckDependencies() {
-    if (attempts < 5) {
+  const maxAttempts = 30;
+  const timeoutMs = 15000; // 15 seconds total timeout
+  function tryCheckDependencies(startTime = Date.now()) {
+    if (Date.now() - startTime > timeoutMs) {
+      console.error('Dependency check timed out after', timeoutMs, 'ms');
+      alert('Failed to load encryption libraries (CryptoJS or NaCl) after timeout. Please check your connection and refresh.');
+      return;
+    }
+    if (attempts < maxAttempts) {
       attempts++;
-      setTimeout(() => {
-        try {
-          checkDependencies();
-        } catch (e) {
-          tryCheckDependencies();
-        }
-      }, 500);
+      console.log('Checking dependencies, attempt', attempts);
+      if (checkDependencies()) return;
+      setTimeout(() => tryCheckDependencies(startTime), 1000);
     } else {
-      console.error('Max retry attempts reached for dependency check.');
+      console.error('Max retry attempts (' + maxAttempts + ') reached for dependency check.');
+      alert('Failed to load encryption libraries after ' + maxAttempts + ' attempts. Please refresh or check your connection.');
     }
   }
 
   if (document.readyState === 'loading') {
-    window.addEventListener('DOMContentLoaded', tryCheckDependencies);
+    window.addEventListener('DOMContentLoaded', () => tryCheckDependencies());
   } else {
     tryCheckDependencies();
   }
