@@ -7,6 +7,15 @@ const peer = new SimplePeer({
 let nickname = localStorage.getItem('chatNickname') || 'Anonymous';
 let password = null;
 
+function initializeKeyPair() {
+  try {
+    window.cryptoModule.getKeyPair(password);
+  } catch (e) {
+    console.error('Key pair initialization failed:', e);
+    alert('Encryption setup failed: ' + e.message);
+  }
+}
+
 window.addEventListener('load', () => {
   if (!localStorage.getItem('chatNickname')) {
     nickname = prompt('Enter your nickname:') || 'Anonymous';
@@ -18,12 +27,13 @@ window.addEventListener('load', () => {
     alert('No password provided. Using temporary key.');
   }
 
-  try {
-    window.cryptoModule.getKeyPair(password);
-  } catch (e) {
-    console.error('Key pair initialization failed:', e);
-    alert('Encryption setup failed: ' + e.message);
-  }
+  // Wait for crypto.js to confirm dependencies
+  const checkInterval = setInterval(() => {
+    if (window.CryptoJS && window.nacl) {
+      clearInterval(checkInterval);
+      initializeKeyPair();
+    }
+  }, 100);
 });
 
 peer.on('signal', (data) => {
