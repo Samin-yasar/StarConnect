@@ -4,13 +4,13 @@
 
   function checkNaCl() {
     if (!window.nacl || !window.nacl.util) {
-      throw new Error('NaCl library (nacl.js or nacl.util.js) not loaded.');
+      throw new Error('NaCl library (nacl.min.js or nacl-util.js) not loaded.');
     }
   }
 
   function checkCryptoJS() {
     if (!window.CryptoJS || !window.CryptoJS.AES || !window.CryptoJS.PBKDF2) {
-      throw new Error('CryptoJS library (crypto-js-min.js) not loaded.');
+      throw new Error('CryptoJS library (crypto-js.min.js) not loaded.');
     }
   }
 
@@ -164,7 +164,7 @@
     setPeerPublicKey
   };
 
-  // Deferred dependency check
+  // Deferred dependency check with retries
   function checkDependencies() {
     try {
       checkNaCl();
@@ -173,22 +173,29 @@
     } catch (e) {
       console.error('Dependency check failed:', e.message);
       alert('Encryption libraries failed to load: ' + e.message + '. Chat disabled.');
+      throw e;
     }
   }
 
-  // Retry dependency check up to 3 times
   let attempts = 0;
   function tryCheckDependencies() {
-    if (attempts < 3) {
+    if (attempts < 5) {
+      attempts++;
       setTimeout(() => {
-        checkDependencies();
-        attempts++;
-        if (!window.nacl || !window.CryptoJS) {
+        try {
+          checkDependencies();
+        } catch (e) {
           tryCheckDependencies();
         }
       }, 500);
+    } else {
+      console.error('Max retry attempts reached for dependency check.');
     }
   }
 
-  window.addEventListener('load', tryCheckDependencies);
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', tryCheckDependencies);
+  } else {
+    tryCheckDependencies();
+  }
 })();
