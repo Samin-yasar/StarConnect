@@ -1,28 +1,31 @@
-// stars.js
 function createStars() {
   const starsContainer = document.createElement('div');
   starsContainer.className = 'stars';
+  starsContainer.style.position = 'fixed';
+  starsContainer.style.top = '0';
+  starsContainer.style.left = '0';
+  starsContainer.style.width = '100vw';
+  starsContainer.style.height = '100vh';
+  starsContainer.style.zIndex = '-1';
   document.body.appendChild(starsContainer);
 
-  // Create 100 stars
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 50; i++) {
     const star = document.createElement('div');
     star.className = 'star';
-    star.style.width = `${Math.random() * 3 + 1}px`;
-    star.style.height = star.style.width;
+    const size = Math.random() * 2 + 1;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
     star.style.top = `${Math.random() * 100}vh`;
     star.style.left = `${Math.random() * 100}vw`;
     star.style.animationDelay = `${Math.random() * 2}s`;
     starsContainer.appendChild(star);
   }
 
-  // Add a nebula effect
   const nebula = document.createElement('div');
   nebula.className = 'nebula';
-  nebula.style.top = '20%';
-  nebula.style.left = '10%';
+  nebula.style.top = '30%';
+  nebula.style.left = '20%';
   starsContainer.appendChild(nebula);
 }
 
-// Call this when the script loads
-createStars();
+document.addEventListener('DOMContentLoaded', createStars);
