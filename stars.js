@@ -1,4 +1,4 @@
-function createStars() {
+ function createStars() {
   const starsContainer = document.createElement('div');
   starsContainer.className = 'stars';
   starsContainer.style.position = 'fixed';
