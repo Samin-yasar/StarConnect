@@ -7,9 +7,10 @@ const ASSETS_TO_CACHE = [
   `${BASE_PATH}manifest.json`,
   `${BASE_PATH}offline.html`,
   `${BASE_PATH}crypto.js`,
-  `${BASE_PATH}crypto-js-min.js`,
-  `${BASE_PATH}nacl.util.js`,
-  `${BASE_PATH}nacl.js`,
+  `${BASE_PATH}crypto-js.min.js`,
+  `${BASE_PATH}nacl-util.js`,
+  `${BASE_PATH}nacl.min.js`,
+  `${BASE_PATH}ui.js`,
   `${BASE_PATH}peer.js`,
   `${BASE_PATH}stars.js`,
   `${BASE_PATH}styles.css`
