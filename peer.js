@@ -61,7 +61,7 @@ peer.on('data', (rawData) => {
     const box = new Uint8Array(msg.box);
     const nonce = new Uint8Array(msg.nonce);
     const plain = window.cryptoModule.decryptMessage({ box, nonce });
-    addMessage(plain, false, msg.nickname);
+    window.uiModule.addMessage(plain, false, msg.nickname);
   } catch (e) {
     console.error('Message processing failed:', e);
     alert('Failed to decrypt message: ' + e.message);
@@ -88,7 +88,7 @@ function sendMessage(message) {
         nickname
       })
     );
-    addMessage(message, true, nickname);
+    window.uiModule.addMessage(message, true, nickname);
   } catch (e) {
     console.error('Send message failed:', e);
     alert('Failed to encrypt message: ' + e.message);
