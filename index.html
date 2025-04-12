@@ -19,9 +19,9 @@
     <button type="submit">Send</button>
   </form>
   <script src="https://unpkg.com/simple-peer@9.11.1/simplepeer.min.js"></script>
-  <script src="crypto-js.min.js" onerror="console.error('Failed to load crypto-js.min.js')"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tweetnacl-util@0.15.1/nacl-util.min.js" onerror="console.error('Failed to load nacl-util.js')"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tweetnacl@1.0.3/nacl.min.js" onerror="console.error('Failed to load nacl.min.js')"></script>
+  <script src="crypto-js.min.js" onerror="console.error('Failed to load crypto-js.min.js'); alert('Failed to load encryption library. Please refresh.')"></script>
+  <script src="nacl-util.js" onerror="console.error('Failed to load nacl-util.js')"></script>
+  <script src="nacl.min.js" onerror="console.error('Failed to load nacl.min.js')"></script>
   <script src="crypto.js"></script>
   <script src="ui.js"></script>
   <script src="peer.js"></script>
