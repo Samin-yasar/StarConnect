@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>⚠️ Warning: Under Development</title>
+  <meta http-equiv="refresh" content="5;url=https://samin-yasar.github.io">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(ellipse at center, #1c1c1c 0%, #000 100%);
+      color: #f8d774;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 600px;
+      border: 2px solid #f8d774;
+      padding: 30px;
+      border-radius: 15px;
+      background-color: rgba(0, 0, 0, 0.7);
+      animation: fadeIn 1s ease-in-out;
+      box-shadow: 0 0 20px #f8d77466;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #f8d774;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      color: #eee;
+    }
+
+    a.button {
+      display: inline-block;
+      padding: 12px 25px;
+      font-size: 1rem;
+      text-decoration: none;
+      color: #000;
+      background-color: #f8d774;
+      border-radius: 30px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    a.button:hover {
+      background-color: #ffe77c;
+      transform: scale(1.05);
+    }
+
+    .spinner {
+      margin: 20px auto;
+      width: 50px;
+      height: 50px;
+      border: 6px solid #f8d77455;
+      border-top: 6px solid #f8d774;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚠️ Project Under Development</h1>
+    <p>This project is currently in development and not yet stable.<br>
+    You will be redirected in a few seconds...</p>
+    <div class="spinner"></div>
+    <p>If not redirected, <a class="button" href="https://samin-yasar.github.io">click here to go Home</a>.</p>
+  </div>
+</body>
+</html>
